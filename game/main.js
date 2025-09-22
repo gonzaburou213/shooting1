@@ -1,42 +1,86 @@
-document.getElementById("kirigirisu").innerText="tositosihiko";
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+const player = {
+  x: canvas.width / 2 - 15,
+  y: canvas.height - 60,
+  width: 30,
+  height: 30,
+  color: "blue",
+  life:3,
+};
+const bullets =[];
+const bullet_speed = -5;
 
-
- let x = 225;
- let y = -150;
+function tryShoot(){
+    bullets.push({
+      x: player.x,
+      y: player.y,
+      width: 30,
+      height: 10,
+      vy: bullet_speed,
+    })
+}
 
     
  window.addEventListener("keydown", (e) => {
+  
    if (e.key === "a") {
-     x -= 10;
+     player.x -= 10;
    } else if (e.key === "d") {
-     x += 10;
-    }else if (e.key === "space") {
-     tama += 1;
+      player.x += 10;
+    }else if (e.code === "Space") {
+     tryShoot();
+     console.log("push");
     }
 
  });
+function update(){
+  for (let i=0;i<bullets.length; i++){
+    const bullet = bullets[i];
+    bullet.y += bullet.vy;
+    if(bullet.y < 0){
+      bullet.splice(i,1);
+    }
+  }
+
+}
+function draw(){
+  ctx.fillStyle="black"
+  ctx.Rect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle= player.color;
+  ctx.Rect(player.x,player.y,player.width,player.height);
+  ctx.fillStyle="white";
+  for(let i =0; i< bullet.length; i++){
+    const bullet = bullets[i];
+     ctx.fillRect(bullet.x,bullet.y.bullet.width,bullet.height); 
+  }
+ 
+}
+
 
 
 function gameLoop() {
    
 ctx.fillStyle = "black";
  ctx.fillRect(0, 0, 480, 640);
+ ctx.fillStyle =player.color;
+ ctx.fillRect(player.x,player.y,player.width,player.height);
 
- ctx.fillStyle = "blue";
- ctx.fillRect(x, 480, 30, 30);
- requestAnimationFrame(gameLoop);
+   for(let i = bullets.length -1; i >= 0; i--){
+    const bullet = bullets[i];
+    bullet.y += bullet.vy;
+    ctx.fillStyle = "white";
+    ctx.fillRect(bullet.x,bullet.y,bullet.width,bullet.height);
+    if  (bullet.y < 0){
+        bullets.splice(i,1);
 
-
-y+=15;
-ctx.fillStyle = "red";
- ctx.fillRect(225, y, 30, 30);
-if(tama>0){
-ctx.fillStyle = "white";
- ctx.fillRect(x + 10, 480 -tama *10, 10, 10  );
- 
+    }
+    console.log(bullet);
+}   ;
+requestAnimationFrame(gameLoop);
 }
+
 
 gameLoop();
