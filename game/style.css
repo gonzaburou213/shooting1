@@ -1,6 +1,6 @@
 /* ゲーム用canvasを中央に表示し、背景色を設定 */
 body {
-  background: #758b6c;
+  background: #222;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,8 +9,13 @@ body {
 }
 
 #gameCanvas {
-  background: #fff;
-  border: 2px solid #000000;
+  background: #ffffff;
+  border: 2px solid #333;
   box-shadow: 0 4px 24px rgba(0,0,0,0.3);
   display: block;
+}
+
+#lifeBoard, #scoreBoard {
+  color: #ffffff;
+  font-size: 50px;
 }

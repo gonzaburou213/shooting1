@@ -1,6 +1,7 @@
 export const enemies = [];
 const SIZE = 26;
-
+const enemyImage = new Image();
+enemyImage.src= "file:///C:/Users/it14243/Downloads/hmf-the-video-of-this-chihuahua-sticking-its-tongue-out-v0-9ytmq8gszhae1.webp";
 function pushEnemies(canvas) {
   const w = SIZE;
   const h = SIZE;
@@ -30,7 +31,7 @@ export function updateEnemies(canvas) {
 export function drawEnemies(ctx) {
   ctx.fillStyle = "crimson";
   for (const e of enemies) {
-    ctx.fillRect(e.x, e.y, e.width, e.height);
+    ctx.drawImage(enemyImage,e.x, e.y, e.width, e.height);
   }
 }
 
